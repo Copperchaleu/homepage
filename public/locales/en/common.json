@@ -718,7 +718,8 @@
         "disk": "Disk",
         "swap": "Swap",
         "load": "Load",
-        "net": "Network"
+        "net": "Network",
+        "traffic": "Traffic"
     },
     "komga": {
         "libraries": "Libraries",

@@ -5,51 +5,59 @@ description: Komari Server Monitoring Widget Configuration
 
 Learn more about [Komari](https://github.com/komari-monitor/komari).
 
-The Komari widget provides a comprehensive multi-node server monitoring dashboard. Unlike most widgets, **a single widget entry automatically displays all nodes** registered in your Komari instance — no need to configure each node individually.
+Each server node is configured as an individual service entry using its `uuid`. You can find the UUID of each node in your Komari admin panel or by visiting the `/api/nodes` endpoint.
+
+Allowed fields: `["cpu", "ram", "disk", "swap", "load", "net", "traffic"]`.
 
 ```yaml
 widget:
   type: komari
   url: http://komari.host.or.ip:port
+  uuid: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
-
-!!! note
-    You only need **one** widget configuration. The widget automatically discovers and displays all nodes from your Komari deployment via the `/api/nodes` endpoint. There is no need to list individual nodes or UUIDs.
-
-## Displayed Metrics
-
-Each node card shows the following real-time metrics:
-
-| Metric | Description |
-|--------|-------------|
-| Status | Online (green) / Offline (gray) indicator |
-| CPU | Usage percentage with color-coded progress bar |
-| RAM | Used / Total with progress bar |
-| Disk | Used / Total with progress bar |
-| Swap | Used / Total with progress bar (hidden when no swap) |
-| Load | 1-minute load average |
-| Network | Real-time upload ↑ and download ↓ speeds |
-| Uptime | System uptime (days/hours/minutes) |
-| Total Traffic | Cumulative upload and download bytes |
 
 ## Example Configuration
 
 ```yaml
 - Server Monitoring:
-    - Komari:
-        icon: mdi-server-network
-        href: https://your-komari-instance.com
-        description: Multi-node server monitoring
+    - My Server:
+        href: https://your-komari-instance.com/instance/your-uuid
+        description: i5-13600KF · Ubuntu
         widget:
             type: komari
             url: https://your-komari-instance.com
+            uuid: your-uuid
+            fields: ["cpu", "ram", "disk", "load"] # optional, defaults to all 6
+            highlight:
+                cpu:
+                    numeric:
+                        - { level: danger, when: gte, value: 80 }
+                        - { level: warn, when: gte, value: 50 }
+                        - { level: good, when: lt, value: 50 }
+                ram:
+                    numeric:
+                        - { level: danger, when: gte, value: 80 }
+                        - { level: warn, when: gte, value: 50 }
+                        - { level: good, when: lt, value: 50 }
 ```
 
-This single entry will render a grid of cards — one per node — all within a single service widget.
+## Highlight Values
+
+The widget passes numeric `highlightValue` to each Block, enabling [Block Highlights](https://gethomepage.dev/configs/services/#block-highlights). The values used for comparison are:
+
+| Field | Value Type | Range |
+|-------|-----------|-------|
+| `cpu` | CPU usage percentage | 0 - 100 |
+| `ram` | RAM usage percentage | 0 - 100 |
+| `disk` | Disk usage percentage | 0 - 100 |
+| `swap` | Swap usage percentage | 0 - 100 |
+| `load` | 1-minute load average | 0+ (raw value, not percentage) |
+| `net` | Network speed string | N/A (no highlight) |
+| `traffic` | Total traffic string (↑upload ↓download) | N/A (no highlight) |
 
 ## Behavior
 
-- **Auto-refresh**: Data refreshes every **5 seconds**.
-- **Sorting**: Online nodes appear first, then sorted by weight (as configured in Komari).
-- **Filtering**: Nodes marked as `hidden` in Komari are automatically excluded.
+- **Single-node mode**: Each service entry corresponds to one server node via `uuid`.
+- **Auto-refresh**: Status data refreshes every **5 seconds**.
+- **Offline detection**: If a node is offline, the widget shows "Offline" with dashes for metrics.
 - **No authentication required**: The widget uses Komari's public API endpoints (`/api/nodes` and `/api/rpc2`).

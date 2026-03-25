@@ -38,6 +38,7 @@ export default function Component({ service }) {
         <Block label="komari.swap" />
         <Block label="komari.load" />
         <Block label="komari.net" />
+        <Block label="komari.traffic" />
       </Container>
     );
   }
@@ -96,12 +97,13 @@ export default function Component({ service }) {
 
   return (
     <Container service={service}>
-      <Block label="komari.cpu" value={t("common.percent", { value: cpu.toFixed(1) })} />
-      <Block label="komari.ram" value={t("common.percent", { value: ramPct.toFixed(0) })} />
-      <Block label="komari.disk" value={t("common.percent", { value: diskPct.toFixed(0) })} />
-      <Block label="komari.swap" value={swapTotal > 0 ? t("common.percent", { value: swapPct.toFixed(0) }) : "-"} />
-      <Block label="komari.load" value={`${Number(status?.load ?? 0).toFixed(2)}/${Number(status?.load5 ?? 0).toFixed(2)}/${Number(status?.load15 ?? 0).toFixed(2)}`} />
+      <Block label="komari.cpu" value={t("common.percent", { value: cpu.toFixed(1) })} highlightValue={cpu} />
+      <Block label="komari.ram" value={t("common.percent", { value: ramPct.toFixed(0) })} highlightValue={ramPct} />
+      <Block label="komari.disk" value={t("common.percent", { value: diskPct.toFixed(0) })} highlightValue={diskPct} />
+      <Block label="komari.swap" value={swapTotal > 0 ? t("common.percent", { value: swapPct.toFixed(0) }) : "-"} highlightValue={swapPct} />
+      <Block label="komari.load" value={`${Number(status?.load ?? 0).toFixed(2)}/${Number(status?.load5 ?? 0).toFixed(2)}/${Number(status?.load15 ?? 0).toFixed(2)}`} highlightValue={status?.load} />
       <Block label="komari.net" value={`↑${formatSpeed(status?.net_out)} ↓${formatSpeed(status?.net_in)}`} />
+      <Block label="komari.traffic" value={`↑${formatBytes(status?.net_total_up)} ↓${formatBytes(status?.net_total_down)}`} />
     </Container>
   );
 }

@@ -708,6 +708,19 @@
         "chapters": "Chapters",
         "categories": "Categories"
     },
+    "komari": {
+        "loading": "加载中",
+        "not_found": "未找到",
+        "status": "状态",
+        "offline": "离线",
+        "cpu": "CPU",
+        "ram": "内存",
+        "disk": "磁盘",
+        "swap": "Swap",
+        "load": "负载",
+        "net": "网速",
+        "traffic": "流量"
+    },
     "komga": {
         "libraries": "书库",
         "series": "Series",
