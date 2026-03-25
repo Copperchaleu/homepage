@@ -712,6 +712,7 @@
         "loading": "Loading",
         "not_found": "Not Found",
         "status": "Status",
+        "offline": "Offline",
         "cpu": "CPU",
         "ram": "RAM",
         "disk": "Disk",
