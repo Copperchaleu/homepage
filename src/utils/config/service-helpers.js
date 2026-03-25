@@ -648,6 +648,9 @@ export function cleanServiceGroups(groups) {
         if (type === "healthchecks") {
           if (uuid !== undefined) widget.uuid = uuid;
         }
+        if (type === "komari") {
+          if (uuid !== undefined) widget.uuid = uuid;
+        }
         if (type === "speedtest") {
           if (bitratePrecision !== undefined) {
             widget.bitratePrecision = parseInt(bitratePrecision, 10);

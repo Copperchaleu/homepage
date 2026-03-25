@@ -708,6 +708,17 @@
         "chapters": "Chapters",
         "categories": "Categories"
     },
+    "komari": {
+        "loading": "Loading",
+        "not_found": "Not Found",
+        "status": "Status",
+        "cpu": "CPU",
+        "ram": "RAM",
+        "disk": "Disk",
+        "swap": "Swap",
+        "load": "Load",
+        "net": "Network"
+    },
     "komga": {
         "libraries": "Libraries",
         "series": "Series",

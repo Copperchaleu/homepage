@@ -93,6 +93,7 @@ nav:
           - widgets/services/jellyfin.md
           - widgets/services/jellystat.md
           - widgets/services/kavita.md
+          - widgets/services/komari.md
           - widgets/services/komga.md
           - widgets/services/komodo.md
           - widgets/services/kopia.md
